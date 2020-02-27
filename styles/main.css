@@ -1,0 +1,23 @@
+#root {
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    position: absolute;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    flex: auto;
+}
+
+#footer {
+    overflow-y: auto;
+    background-color: rgb(226, 228, 228);
+    margin-top: 10px;
+    padding: 10px;
+    flex: auto;
+}
