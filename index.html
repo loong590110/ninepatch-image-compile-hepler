@@ -7,20 +7,24 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
   <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
   <link rel="stylesheet" href="./styles/main.css" type="text/css" />
-  <title>Nine-patch Image Compile Helper</title>
+  <title>.9图编译助手</title>
 </head>
 
 <body>
   <div id="root">
     <div id="content">
-      <h1>Hello World!</h1>
-      We are using Node.js <span id="node-version"></span>,
-      Chromium <span id="chrome-version"></span>,
-      and Electron <span id="electron-version"></span>.
+      <label>请选择要编译的.9图目录：</label>
+      <div id="input">
+        <input id="dir_in" type="text" readonly />
+        <button id="select">去选择</button>
+      </div>
+      <label>输出目录：</label>
+      <div id="output">
+        <input id="dir_out" type="text" readonly />
+        <button id="open">打开</button>
+      </div>
     </div>
-    <div id="footer">
-      <div id="state">准备就绪...</div>
-    </div>
+    <textarea id="result" readonly>执行结果：</textarea>
   </div>
   <!-- You can also require other files to run in this process -->
   <script src="./renderer.js"></script>
