@@ -25,13 +25,13 @@ let workerProcess
 txtInput.value = '...'
 txtOutput.value = '...'
 
-ipcRenderer.on('open-directory', function (path) {
+ipcRenderer.on('open-directory-result', function (path) {
     txtInput.value = path
     runExec()
 })
 
 btnSelect.addEventListener('click', function () {
-    ipcRenderer.send('open-directory', 'openDirectory')
+    ipcRenderer.send('open-directory', null)
 })
 
 btnOpen.addEventListener('click', function () {

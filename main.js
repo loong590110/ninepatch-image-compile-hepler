@@ -9,17 +9,25 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: true,
+      contextIsolation: true,
+      sandbox: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
 
-  console.log('registy event')
-  ipcMain.on('open-directory', function (event, property) {
-    console.log('receive on ipcMain')
-    dialog.showOpenDialog({ properties: [property] }, function (files) {
-      if (files) {
-        event.sender.send('open-directory', files[0])
+  ipcMain.on('open-directory', function (event, arg) {
+    dialog.showOpenDialog(mainWindow, {
+      properties: ['openDirectory']
+    }).then(result => {
+      if (result.canceled) {
+        console.log('Dialog was canceled')
+      } else {
+        const file = result.filePaths[0]
+        event.sender.send('open-directory-result', file)
       }
+    }).catch(err => {
+      console.log(err)
     })
   })
 
