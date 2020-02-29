@@ -20,8 +20,10 @@ const txtState = document.getElementById('result')
 // 任何你期望执行的cmd命令，ls都可以
 const platform = process.platform
 const aapt = 'linux' == platform ? 'aapt-linux' : 'darwin' == platform ? 'aapt-mac' : 'aapt'
-const path = 'win32' == platform ? 'aapt/' : './aapt/';
+const path = 'win32' == platform ? 'aapt\\' : './aapt/';
 const cmdStr = path + aapt + ' c -v -S $input -C $output'
+const outDir = 'win32' == platform ? '\\output' : '/ouput'
+const childDir = 'win32' == platform ? '\\' : '/.'
 
 // 子进程名称
 let workerProcess
@@ -34,7 +36,7 @@ ipcRenderer.on('open-directory-result', function (event, data) {
         if (data.arg == 'input') {
             txtInput.value = data.filePath
             if (txtOutput.value == '') {
-                txtOutput.value = txtInput.value + '/output'
+                txtOutput.value = txtInput.value + outDir
             }
         } else if ('output' == data.arg) {
             txtOutput.value = data.filePath
@@ -51,8 +53,14 @@ btnOutput.addEventListener('click', function () {
 })
 
 btnOpen.addEventListener('click', function () {
-    const path = (txtOutput.value + '/.').replace('//', '/');
+    let path = txtOutput.value + childDir;
     if (fs.existsSync(path)) {
+        if ('win32' == process.platform) {
+            const files = fs.readdirSync(path);
+            if (files && files.length > 0) {
+                path = path + files[0];
+            }
+        }
         shell.showItemInFolder(path);
     } else {
         println('目录不存在');
@@ -68,7 +76,7 @@ function runExec(input, output) {
         alert('请选择要编译的图片目录');
         return;
     }
-    if (input + '/output' == output) {
+    if (input + outDir == output) {
         shell.moveItemToTrash(output);
     }
     // 执行命令行，如果命令不需要路径，或就是项目根目录，则不需要cwd参数：
