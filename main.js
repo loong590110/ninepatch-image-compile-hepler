@@ -1,6 +1,12 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, dialog, ipcMain } = require('electron')
+const isDev = require('electron-is-dev');
 const path = require('path')
+
+app.allowRendererProcessReuse = true;
+if (!isDev) {
+  app.applicationMenu = null;
+}
 
 function createWindow() {
   // Create the browser window.
@@ -8,10 +14,8 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
+      devTools: isDev,
       nodeIntegration: true,
-      enableRemoteModule: true,
-      contextIsolation: true,
-      sandbox: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
@@ -23,8 +27,8 @@ function createWindow() {
       if (result.canceled) {
         console.log('Dialog was canceled')
       } else {
-        const file = result.filePaths[0]
-        event.sender.send('open-directory-result', file)
+        const filePath = result.filePaths[0]
+        event.sender.send('open-directory-result', { filePath, arg })
       }
     }).catch(err => {
       console.log(err)

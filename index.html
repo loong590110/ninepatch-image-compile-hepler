@@ -15,16 +15,21 @@
     <div id="content">
       <label>请选择要编译的.9图目录：</label>
       <div id="input">
-        <input id="dir_in" type="text" readonly />
-        <button id="select">去选择</button>
+        <input id="txt_dir_in" type="text" placeholder="..." readonly />
+        <button id="btn_sel_in">去选择</button>
       </div>
       <label>输出目录：</label>
       <div id="output">
-        <input id="dir_out" type="text" readonly />
-        <button id="open">打开</button>
+        <input id="txt_dir_out" type="text" placeholder="..." readonly />
+        <button id="btn_sel_out">去选择</button>
       </div>
     </div>
-    <textarea id="result" readonly>执行结果：</textarea>
+    <div id="result_title_and_function_buttons">
+      <label>执行结果：</label>
+      <button id="btn_open">打开输出目录</button>
+      <button id="btn_start">开始编译</button>
+    </div>
+    <textarea id="result" readonly placeholder="..."></textarea>
   </div>
   <!-- You can also require other files to run in this process -->
   <script src="./renderer.js"></script>
