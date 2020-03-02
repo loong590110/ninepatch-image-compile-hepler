@@ -5,9 +5,10 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager ./ npic-helper --asar.unpackDir=aapt --platform=linux --arch=x64 --out ./outputs --overwrite",
+    "package": "electron-packager ./ npic-helper --asar.unpackDir=aapt --out ./outputs --overwrite",
+    "package-mac": "electron-packager ./ npic-helper --asar.unpackDir=aapt --platform=darwin --arch=x64 --out ./outputs --overwrite && mv ./outputs/npic-helper-darwin-x64/npic-helper.app/Contents/Resources/app.asar.unpacked/aapt ./outputs/npic-helper-darwin-x64/npic-helper.app/Contents/MacOS/aapt",
     "package-linux": "electron-packager ./ npic-helper --asar.unpackDir=aapt --platform=linux --arch=x64 --out ./outputs --overwrite && mv ./outputs/npic-helper-linux-x64/resources/app.asar.unpacked/aapt ./outputs/npic-helper-linux-x64/aapt",
-    "package-win32": "electron-packager ./ npic-helper --asar.unpackDir=aapt --platform=win32 --arch=x64 --out ./outputs --overwrite && move ./outputs/npic-helper-win32-x64/resources/app.asar.unpacked/aapt ./outputs/npic-helper-win32-x64/aapt"
+    "package-win": "electron-packager ./ npic-helper --asar.unpackDir=aapt --platform=win32 --arch=x64 --out ./outputs --overwrite && move ./outputs/npic-helper-win32-x64/resources/app.asar.unpacked/aapt ./outputs/npic-helper-win32-x64/aapt"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
